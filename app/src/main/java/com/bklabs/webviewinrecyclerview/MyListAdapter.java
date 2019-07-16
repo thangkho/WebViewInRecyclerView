@@ -23,6 +23,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyHolder> 
     List<ItemData> listData;
     private int screenWith;
     private String style =
+            "<head> <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />"+
             "<script type=\"text/javascript\">" +
                     "window.onload = function () {" +
                     "var content = document.getElementById(\"contentMessage\");" +
