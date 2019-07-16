@@ -25,12 +25,12 @@ public class Datas {
             ItemData itemData = new ItemData();
             itemData.setName("Test " + i);
             itemData.setTime("11/11/2011");
-            if (i % 2 == 0) {
-                itemData.setContent(table);
 
-            } else if (i % 3 == 0) {
+            if (i % 2 == 0) {
                 itemData.setContent(str);
-            } else itemData.setContent(str2);
+            } else {
+                itemData.setContent(str2);
+            }
             list.add(itemData);
         }
         return list;

@@ -68,14 +68,28 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyHolder myHolder, int i) {
+    public void onBindViewHolder(@NonNull final MyHolder myHolder,final  int i) {
         ItemData itemData = listData.get(i);
         String contentWeb = "<body><div id=\"bodyContent\" style=\"display: flex;\"><div id=\"contentMessage\">"
                 + itemData.getContent()
                 + "</div></div></body>" + style;
-        Log.d("tranhoasss", contentWeb);
         myHolder.name.setText(itemData.getName());
+        myHolder.webView.removeJavascriptInterface("AndroidInterface");
         myHolder.webView.loadData(contentWeb, "text/html", "UTF-8");
+        myHolder.webView.addJavascriptInterface(new Object(){
+            @JavascriptInterface
+            public void getWidthContent(final String withContent) {
+
+                Handler handler = new Handler(Looper.getMainLooper());
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Math.min(screenWith / 2, convertDpSize( myHolder.webView.getContext(), Integer.valueOf(withContent) + 10)), ViewGroup.LayoutParams.WRAP_CONTENT);
+                        myHolder.webView.setLayoutParams(params);
+                    }
+                });
+            }
+        },"AndroidInterface");
 
     }
 
@@ -97,7 +111,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyHolder> 
             WebSettings webSettings = webView.getSettings();
             webSettings.setJavaScriptEnabled(true);
             webView.setWebChromeClient(new WebChromeClient());
-            webView.addJavascriptInterface(new WebAppInterface(webView.getContext(), webView), "AndroidInterface");
+//            webView.addJavascriptInterface(new WebAppInterface(webView.getContext(), webView), "AndroidInterface");
         }
     }
 
@@ -112,10 +126,12 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyHolder> 
 
         @JavascriptInterface
         public void getWidthContent(final String withContent) {
+
             Handler handler = new Handler(Looper.getMainLooper());
             handler.post(new Runnable() {
                 @Override
                 public void run() {
+                    Log.d("tranhoasss",screenWith+" "+ withContent);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Math.min(screenWith / 2, convertDpSize(mContext, Integer.valueOf(withContent) + 10)), ViewGroup.LayoutParams.WRAP_CONTENT);
                     webView.setLayoutParams(params);
                 }
