@@ -16,7 +16,7 @@ public class Datas {
             "</tr>\n" +
             "</table>";
     public static String str = "<div>I'm hurting, baby, I'm broken down\n" +
-            "I need your loving, loving, I need it now";
+            "I need your loving, loving, I need it now</div>";
     public static String str2 = "Sugar";
 
     public static List<ItemData> createData() {
