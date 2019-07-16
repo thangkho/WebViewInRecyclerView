@@ -15,7 +15,6 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -117,7 +116,6 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyHolder> 
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Toast.makeText(mContext, withContent + " ", Toast.LENGTH_SHORT).show();
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Math.min(screenWith / 2, convertDpSize(mContext, Integer.valueOf(withContent) + 10)), ViewGroup.LayoutParams.WRAP_CONTENT);
                     webView.setLayoutParams(params);
                 }
