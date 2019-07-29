@@ -1,12 +1,17 @@
 package com.bklabs.webviewinrecyclerview;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
+import java.sql.Timestamp;
+import java.text.DateFormatSymbols;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 public class MainActivity extends AppCompatActivity {
     RecyclerView myList;
@@ -20,12 +25,34 @@ public class MainActivity extends AppCompatActivity {
         myList = findViewById(R.id.myList);
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        myListAdapter = new MyListAdapter(listData,displayMetrics.widthPixels);
+        myListAdapter = new MyListAdapter(listData, displayMetrics.widthPixels);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        PreCachingLayoutManager layoutManager = new PreCachingLayoutManager(this);
+        layoutManager.setOrientation(
+                RecyclerView.VERTICAL);
         layoutManager.setStackFromEnd(true);
         myList.setLayoutManager(layoutManager);
         myList.setAdapter(myListAdapter);
+        myList.setItemViewCacheSize(0);
+        Log.d("timecreate", getDayChatTimeLine("1563528889801"));
+    }
+
+    public String getDayChatTimeLine(String created) {
+        try {
+            Timestamp stamp = new Timestamp(Long.valueOf(created));
+            Date date = new Date(stamp.getTime());
+            Calendar calendar = Calendar.getInstance();
+            int currentYear = calendar.get(Calendar.YEAR);
+            calendar.setTime(date);
+            String month = new DateFormatSymbols().getMonths()[calendar.get(Calendar.MONTH)];
+            int day = calendar.get(Calendar.DAY_OF_MONTH);
+            int year = calendar.get(Calendar.YEAR);
+            int hour = calendar.get(Calendar.HOUR_OF_DAY);
+            int min = calendar.get(Calendar.MINUTE);
+            return hour + " " + min + " " + month + " " + day + ", " + year;//(year == currentYear ? "" : ", " + year);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 }

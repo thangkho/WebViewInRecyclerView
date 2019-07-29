@@ -1,3 +1,63 @@
 <resources>
     <string name="app_name">WebViewInRecyclerView</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="font_sf_pro_display_regular_italic">fonts/sf_pro_display_regular_italic.ttf</string>
+    <string name="font_sf_pro_display_bold">fonts/sf_pro_display_bold.ttf</string>
+    <string name="font_sf_pro_display_regular">fonts/sf_pro_display_regular.ttf</string>
+    <string name="font_sf_pro_display_black">fonts/sf_pro_display_black.ttf</string>
+
+    <!--FONT-->
+    <string name="font_lato_bold">fonts/lato_bold.ttf</string>
+    <string name="font_lato_bold_italic">fonts/lato_bold_italic.ttf</string>
+    <string name="font_lato_italic">fonts/lato_italic.ttf</string>
+    <string name="font_lato_regular">fonts/lato_regular.ttf</string>
+
+    <!--<string name="font_pro_display_semi_bold">fonts/sf_pro_display_semi_bold.ttf</string>-->
+    <string name="font_pro_display_black">fonts/sf_pro_display_black.ttf</string>
+    <string name="font_pro_display_black_italic">fonts/sf_pro_display_black_italic.ttf</string>
+    <!--<string name="font_pro_display_bold">fonts/sf_pro_display_bold.ttf</string>-->
+    <string name="font_pro_display_heavy">fonts/sf_pro_display_heavy.ttf</string>
+    <string name="font_pro_display_heavy_italic">fonts/sf_pro_display_heavy_italic.ttf</string>
+    <!--<string name="font_pro_display_regular">fonts/sf_pro_display_regular.ttf</string>-->
+    <string name="font_pro_display_regular_italic">fonts/sf_pro_display_regular_italic.ttf</string>
+
+    <string name="font_pro_display_semi_bold">fonts/sf_pro_text_semibold.ttf</string>
+    <string name="font_pro_display_regular">fonts/sf_pro_text_regular.ttf</string>
+    <string name="font_pro_display_bold">fonts/sf_pro_text_bold.ttf</string>
+
+    <!--APP-->
+    <string name="read_more">xem thêm</string>
+    <string name="read_less">thu gọn</string>
+    <string name="loading">Đang tải…</string>
+    <string name="no_data">Không có dữ liệu</string>
+
+    <string name="double_tap_to_exit">Nhấn lần nữa để thoát!</string>
+    <string name="cancel">Hủy</string>
+    <string name="select_value">Chọn giá trị</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="done">Xong</string>
+    <string name="percent_label">%</string>
+
+    <string name="day">Ngày</string>
+    <string name="month">Tháng</string>
+    <string name="year">Năm</string>
+    <string name="hour">Giờ</string>
+    <string name="minute">Phút</string>
+
+    <string name="month_one">Thg 1</string>
+    <string name="month_two">Thg 2</string>
+    <string name="month_three">Thg 3</string>
+    <string name="month_four">Thg 4</string>
+    <string name="month_five">Thg 5</string>
+    <string name="month_six">Thg 6</string>
+    <string name="month_seven">Thg 7</string>
+    <string name="month_eight">Thg 8</string>
+    <string name="month_nice">Thg 9</string>
+    <string name="month_ten">Thg 10</string>
+    <string name="month_eleven">Thg 11</string>
+    <string name="month_twelfth">Thg 12</string>
+    <string name="dang_ban_0"><![CDATA[Dang ban < 0]]></string>
+    <string name="dang_ban_phong_trong"><![CDATA[Dang ban > phong trong]]></string>
 </resources>

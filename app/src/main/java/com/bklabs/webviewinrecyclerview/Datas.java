@@ -27,9 +27,9 @@ public class Datas {
             itemData.setTime("11/11/2011");
 
             if (i % 2 == 0) {
-                itemData.setContent(str);
+                itemData.setContent(i + " " + str);
             } else {
-                itemData.setContent(str2);
+                itemData.setContent(i + " " + str2);
             }
             list.add(itemData);
         }

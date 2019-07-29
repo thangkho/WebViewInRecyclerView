@@ -4,6 +4,7 @@ public class ItemData {
     String content;
     String time;
     String name;
+    int widthWeb = -1;
 
     public String getContent() {
         return content;
@@ -27,5 +28,13 @@ public class ItemData {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getWidthWeb() {
+        return widthWeb;
+    }
+
+    public void setWidthWeb(int widthWeb) {
+        this.widthWeb = widthWeb;
     }
 }

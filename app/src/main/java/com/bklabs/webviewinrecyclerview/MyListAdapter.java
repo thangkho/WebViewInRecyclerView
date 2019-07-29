@@ -3,8 +3,6 @@ package com.bklabs.webviewinrecyclerview;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,12 +16,15 @@ import android.widget.TextView;
 
 import java.util.List;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyHolder> {
     List<ItemData> listData;
     private int screenWith;
     private String style =
-            "<head> <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />"+
-            "<script type=\"text/javascript\">" +
+            "<head> <meta name=\"viewport\" content=\"width=device-width, user-scalable=no\" />" +
+                    "<script type=\"text/javascript\">" +
                     "window.onload = function () {" +
                     "var content = document.getElementById(\"contentMessage\");" +
                     "AndroidInterface.getWidthContent(content.offsetWidth);" +
@@ -68,15 +69,18 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyHolder> 
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final MyHolder myHolder,final  int i) {
-        ItemData itemData = listData.get(i);
+    public void onBindViewHolder(@NonNull final MyHolder myHolder, final int i) {
+        final ItemData itemData = listData.get(i);
+
+        myHolder.itemView.requestLayout();
         String contentWeb = "<body><div id=\"bodyContent\" style=\"display: flex;\"><div id=\"contentMessage\">"
                 + itemData.getContent()
                 + "</div></div></body>" + style;
+        myHolder.webView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.WRAP_CONTENT));
+        myHolder.webView.requestLayout();
         myHolder.name.setText(itemData.getName());
         myHolder.webView.removeJavascriptInterface("AndroidInterface");
-        myHolder.webView.loadData(contentWeb, "text/html", "UTF-8");
-        myHolder.webView.addJavascriptInterface(new Object(){
+        myHolder.webView.addJavascriptInterface(new Object() {
             @JavascriptInterface
             public void getWidthContent(final String withContent) {
 
@@ -84,12 +88,17 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyHolder> 
                 handler.post(new Runnable() {
                     @Override
                     public void run() {
-                        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Math.min(screenWith / 2, convertDpSize( myHolder.webView.getContext(), Integer.valueOf(withContent) + 10)), ViewGroup.LayoutParams.WRAP_CONTENT);
-                        myHolder.webView.setLayoutParams(params);
+                            itemData.setWidthWeb(Integer.valueOf(withContent));
+                            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Math.min(screenWith / 2, convertDpSize(myHolder.webView.getContext(), Integer.valueOf(withContent) + 10)), ViewGroup.LayoutParams.WRAP_CONTENT);
+                            myHolder.webView.setLayoutParams(params);
+                            notifyDataSetChanged();
+
                     }
                 });
             }
-        },"AndroidInterface");
+        }, "AndroidInterface");
+        myHolder.webView.loadData(contentWeb, "text/html", "UTF-8");
+
 
     }
 
@@ -131,7 +140,7 @@ public class MyListAdapter extends RecyclerView.Adapter<MyListAdapter.MyHolder> 
             handler.post(new Runnable() {
                 @Override
                 public void run() {
-                    Log.d("tranhoasss",screenWith+" "+ withContent);
+                    Log.d("tranhoasss", screenWith + " " + withContent);
                     LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(Math.min(screenWith / 2, convertDpSize(mContext, Integer.valueOf(withContent) + 10)), ViewGroup.LayoutParams.WRAP_CONTENT);
                     webView.setLayoutParams(params);
                 }

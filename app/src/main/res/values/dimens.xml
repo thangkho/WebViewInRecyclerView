@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <dimen name="padding_view">20dp</dimen>
+    <dimen name="padding_layout_large">16dp</dimen>
+    <dimen name="padding_layout">12dp</dimen>
+    <dimen name="padding_content">8dp</dimen>
+    <dimen name="padding_small">4dp</dimen>
+
+    <!--radius-->
+    <dimen name="radius">5dp</dimen>
+    <dimen name="radius_badge">10dp</dimen>
+    <dimen name="radius_large">10dp</dimen>
+    <dimen name="radius_component">20dp</dimen>
+
+    <!--border-->
+    <dimen name="size_border">0.25dp</dimen>
+    <dimen name="size_border_dashboard">0.25dp</dimen>
+    <dimen name="line">0.25dp</dimen>
+
+    <!--avatar-->
+    <dimen name="avatar_xxlarge">120dp</dimen>
+    <dimen name="avatar_xlarge">100dp</dimen>
+    <dimen name="avatar_large">80dp</dimen>
+    <dimen name="avatar_medium">60dp</dimen>
+    <dimen name="avatar_small">40dp</dimen>
+    <dimen name="avatar_tiny">30dp</dimen>
+    <dimen name="avatar_border">2dp</dimen>
+
+    <!--fab button-->
+    <dimen name="max_size_image_fab">35dp</dimen>
+
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+    <dimen name="margin_content">8dp</dimen>
+    <dimen name="margin_super_large">80dp</dimen>
+    <dimen name="margin_finance_item">90dp</dimen>
+    <dimen name="margin_layout">12dp</dimen>
+    <dimen name="margin_dialog">20dp</dimen>
+    <dimen name="margin_large">45dp</dimen>
+    <dimen name="margin_medium">30dp</dimen>
+    <dimen name="margin_small">25dp</dimen>
+    <dimen name="margin_splash">80dp</dimen>
+    <dimen name="tab_max_width">264dp</dimen>
+    <dimen name="tab_padding_bottom">16dp</dimen>
+    <dimen name="tab_label">14sp</dimen>
+    <dimen name="custom_tab_layout_height">72dp</dimen>
+    <dimen name="default_card_height">70dp</dimen>
+    <dimen name="margin_normal">16dp</dimen>
+    <dimen name="padding_dialog">60dp</dimen>
+    <dimen name="button_height">35dp</dimen>
+    <dimen name="bottom_icon">30dp</dimen>
+    <dimen name="bottom_line_width">55dp</dimen>
+    <dimen name="bottom_line_height">3dp</dimen>
+
+    <!--progress bar-->
+    <dimen name="progress_bar_padding">1dp</dimen>
+    <dimen name="progress_bar_radius">8dp</dimen>
+    <dimen name="progress_bar_min_height">10dp</dimen>
+    <dimen name="progress_bar_max_height">12dp</dimen>
+    <dimen name="progress_bar_height">10dp</dimen>
+
+    <!--icon-->
+    <dimen name="icon_tiny">15dp</dimen>
+    <dimen name="icon_small">20dp</dimen>
+    <dimen name="icon_small_2x">25dp</dimen>
+    <dimen name="icon_medium">30dp</dimen>
+    <dimen name="icon_large">40dp</dimen>
+    <dimen name="icon_xlarge">40dp</dimen>
+    <dimen name="icon_xxlarge">45dp</dimen>
+    <dimen name="icon_super_large">70dp</dimen>
+    <dimen name="fab_size">55dp</dimen>
+
+    <!--dialog-->
+    <dimen name="logo_size_width">200dp</dimen>
+    <dimen name="logo_size_height">50dp</dimen>
+
+    <!--finance-->
+    <dimen name="finance_tab_height">35dp</dimen>
+
+    <!--calendar-->
+    <dimen name="calendar_column_width_item">100dp</dimen>
+    <dimen name="calendar_column_height_item">45dp</dimen>
+    <dimen name="calendar_column_height_item_date">35dp</dimen>
+    <dimen name="calendar_badge_size">25dp</dimen>
+    <dimen name="calendar_radius">30dp</dimen>
+
+    <!--tab-->
+    <dimen name="tab_height">30dp</dimen>
+    <dimen name="chart_height">220dp</dimen>
+    <dimen name="size_viewpager_image">320dp</dimen>
+    <dimen name="badge_size">20dp</dimen>
+    <dimen name="font_size_large">16sp</dimen>
+    <dimen name="font_size_xxlarge">26sp</dimen>
+    <dimen name="font_size_xlarge">20sp</dimen>
+    <dimen name="font_size_normal">14sp</dimen>
+    <dimen name="font_size_medium">12sp</dimen>
+    <dimen name="font_size_small">9sp</dimen>
+    <dimen name="font_size_tiny">7sp</dimen>
+    <dimen name="height_note_channel">60dp</dimen>
+    <dimen name="height_room_channel">70dp</dimen>
+    <dimen name="height_title_calendar">58dp</dimen>
+    <dimen name="height_day_calendar">40dp</dimen>
+    <dimen name="height_view_calendar">1dp</dimen>
+    <dimen name="footer_height">100dp</dimen>
+    <dimen name="header_height">100dp</dimen>
+</resources>
