@@ -59,10 +59,6 @@ public class AdapterCalendar extends RecyclerView.Adapter<AdapterCalendar.ViewHo
         int year = cal.get(Calendar.YEAR);
         cal.setTime(mDate);
         // if days of another month
-        if (month != cal.get(Calendar.MONTH)) {
-            holder.mTvDay.setVisibility(View.INVISIBLE);
-            holder.mTvTotalEvents.setVisibility(View.INVISIBLE);
-        }
         String color = "";
         if (isSunday(scheduleCount.getDate())) {
             holder.mTvDay.setBackground(null);

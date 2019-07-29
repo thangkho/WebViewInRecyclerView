@@ -81,7 +81,7 @@ public class CalendarFragment extends Fragment {
         mDaysCount = getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK)) + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
         //columns of gird calendar
         mWeekInMonth = mDaysCount % mDaysOfWeek == 0 ? mDaysCount / mDaysOfWeek : mDaysCount / mDaysOfWeek + 1;
-
+        mDaysCount = mWeekInMonth * mDaysOfWeek;
         // move calendar backwards to the beginning of the week
         calendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell);
         // fill cells

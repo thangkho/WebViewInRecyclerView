@@ -9,6 +9,7 @@
 package com.bklabs.webviewinrecyclerview.calendar;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 
 import com.bklabs.webviewinrecyclerview.R;
 
@@ -33,7 +34,15 @@ public class CalendarUtils {
                 - mContext.getResources().getDimensionPixelSize(R.dimen.height_title_calendar)
                 - mContext.getResources().getDimensionPixelSize(R.dimen.height_day_calendar)
                 - mContext.getResources().getDimensionPixelSize(R.dimen.height_view_calendar)
+                - getActionBarSize(mContext)
                 - getStatusBarHeight(mContext));
+    }
+
+    private static int getActionBarSize(Context context) {
+        TypedArray styledAttributes = context.getTheme().obtainStyledAttributes(new int[]{android.R.attr.actionBarSize});
+        int actionBarSize = (int) styledAttributes.getDimension(0, 0);
+        styledAttributes.recycle();
+        return actionBarSize;
     }
 
     /**
