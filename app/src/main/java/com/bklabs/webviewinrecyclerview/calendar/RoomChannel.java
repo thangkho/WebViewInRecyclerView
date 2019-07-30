@@ -1,8 +1,9 @@
 package com.bklabs.webviewinrecyclerview.calendar;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class RoomChannel {
+public class RoomChannel implements Serializable {
     int roomEmpty;
     int roomSell;
     Date date;

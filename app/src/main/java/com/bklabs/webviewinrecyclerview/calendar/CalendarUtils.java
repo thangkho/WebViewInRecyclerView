@@ -56,6 +56,10 @@ public class CalendarUtils {
         return getHeightCalendar(mContext) / totalColumn;
     }
 
+    public static int setWidthItemCalendar(Context mContext) {
+        return mContext.getResources().getDisplayMetrics().heightPixels / 7;
+    }
+
     /**
      * get height of status bar
      *

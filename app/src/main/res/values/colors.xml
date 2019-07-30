@@ -50,4 +50,5 @@
     <color name="color_cash_chart_3">#db9900</color>
     <color name="color_cash_chart_4">#41b5e7</color>
     <color name="color_cash_chart_5">#dc7ec2</color>
+    <color name="transparent">#00ffffff</color>
 </resources>

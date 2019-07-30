@@ -1,6 +1,7 @@
 package com.bklabs.webviewinrecyclerview.calendar.customcalendar;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ public class AdapterCalendar extends RecyclerView.Adapter<AdapterCalendar.ViewHo
 
     private Date mDate;
     private int mNumberRows;
+    private IClickItemCalendar mClickListener;
 
     public AdapterCalendar(ArrayList<RoomChannel> days, Date date, int numberRows) {
         this.mListScheduleCount = days;
@@ -116,15 +118,24 @@ public class AdapterCalendar extends RecyclerView.Adapter<AdapterCalendar.ViewHo
 
         @Override
         public void onClick(View view) {
-//            if (mClickListener != null && getLayoutPosition() != RecyclerView.NO_POSITION) {
-//                mClickListener.onItemClick(mListScheduleCount.get(getLayoutPosition()));
-//            }
+            Log.d("tranhoasss", view.getX() + " " + view.getY() + " " + view.getWidth() + " " + view.getHeight());
+//            Toast.makeText(view.getContext(), view.getX() + " " + view.getY() + " " + view.getWidth() + " " + view.getHeight(), Toast.LENGTH_SHORT).show();
+            if (mClickListener != null && getLayoutPosition() != RecyclerView.NO_POSITION) {
+                int test2[] = new int[2];
+                view.getLocationOnScreen(test2);
+                mClickListener.clickItem(mListScheduleCount.get(getLayoutPosition()), view.getWidth(), view.getHeight(), view.getX(), view.getY(),test2);
+            }
         }
     }
-//
-//    public void setClickListener(IClickItemCalendar iClickItemCalendar) {
-//        this.mClickListener = iClickItemCalendar;
-//    }
+
+    //
+    public void setClickListener(IClickItemCalendar iClickItemCalendar) {
+        this.mClickListener = iClickItemCalendar;
+    }
+
+    public interface IClickItemCalendar {
+        void clickItem(RoomChannel roomChannel, int with, int height, float x, float y, int[] test2);
+    }
 
     private boolean isSunday(Date date) {
         Calendar cal = Calendar.getInstance();

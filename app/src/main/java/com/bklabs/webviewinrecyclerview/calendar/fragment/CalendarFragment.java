@@ -1,12 +1,12 @@
 package com.bklabs.webviewinrecyclerview.calendar.fragment;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.bklabs.webviewinrecyclerview.R;
+import com.bklabs.webviewinrecyclerview.calendar.CalendarDialog;
 import com.bklabs.webviewinrecyclerview.calendar.RoomChannel;
 import com.bklabs.webviewinrecyclerview.calendar.customcalendar.AdapterCalendar;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -18,10 +18,11 @@ import java.util.Date;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class CalendarFragment extends Fragment {
+public class CalendarFragment extends Fragment implements AdapterCalendar.IClickItemCalendar {
     ArrayList<RoomChannel> mListRoom = new ArrayList<>();
     private int mNumberColumns = 7;
     private int mDaysCount = 35;
@@ -58,15 +59,10 @@ public class CalendarFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRvCalendar = view.findViewById(R.id.rvNotificationF);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Calendar calendar = Calendar.getInstance();
-                calendar.add(Calendar.MONTH, 1);
+        Calendar calendar = Calendar.getInstance();
+        calendar.add(Calendar.MONTH, 1);
 
-                initRvCalendar(calendar.getTime());
-            }
-        }, 5000);
+        initRvCalendar(calendar.getTime());
     }
 
     private void initRvCalendar(Date date) {
@@ -75,7 +71,7 @@ public class CalendarFragment extends Fragment {
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         // determine the cell for current month's beginning
 
-        calendar.set(Calendar.DAY_OF_MONTH, 1);
+//        calendar.set(Calendar.DAY_OF_MONTH, 1);
         int monthBeginningCell = getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
         //size of grid calendar
         mDaysCount = getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK)) + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -92,7 +88,11 @@ public class CalendarFragment extends Fragment {
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
         AdapterCalendar mAdapterCalendar = new AdapterCalendar(mListRoom, date, mWeekInMonth);
-//        mAdapterCalendar.setClickListener(this);
+        mAdapterCalendar.setClickListener(this);
+        mRvCalendar.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.HORIZONTAL));
+        mRvCalendar.addItemDecoration(new DividerItemDecoration(getActivity(),
+                DividerItemDecoration.VERTICAL));
         mRvCalendar.setLayoutManager(new GridLayoutManager(mRvCalendar.getContext(), mNumberColumns));
         mRvCalendar.setAdapter(mAdapterCalendar);
 
@@ -123,5 +123,19 @@ public class CalendarFragment extends Fragment {
                 return 0;
 
         }
+    }
+
+    @Override
+    public void clickItem(RoomChannel roomChannel, int with, int height, float x, float y, int[] test2) {
+        CalendarDialog editNameDialogFragment = CalendarDialog.newInstance(roomChannel, with, height, x, y,test2);
+        editNameDialogFragment.show(getChildFragmentManager(), "fragment_edit_name");
+//        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+//        View customView = layoutInflater.inflate(R.layout.fragment_edit_room,null);
+//
+//
+//        PopupWindow  popupWindow = new PopupWindow(customView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+//
+//        //display the popup window
+//        popupWindow.showAtLocation(mRvCalendar, Gravity.CENTER, (int)x, (int)y);
     }
 }
