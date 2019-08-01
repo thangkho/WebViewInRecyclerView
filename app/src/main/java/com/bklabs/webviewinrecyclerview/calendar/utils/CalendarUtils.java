@@ -6,7 +6,7 @@
  *         All rights are reserved by SoftBank Corp., whether the whole or part of the source code including any modifications.
  */
 
-package com.bklabs.webviewinrecyclerview.calendar;
+package com.bklabs.webviewinrecyclerview.calendar.utils;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -27,13 +27,14 @@ public class CalendarUtils {
      * @param mContext
      * @return int
      */
-    private static int getHeightCalendar(Context mContext) {
+    private static int getHeightCalendar(Context mContext,int total) {
         return (mContext.getResources().getDisplayMetrics().heightPixels
                 - mContext.getResources().getDimensionPixelSize(R.dimen.height_note_channel)
                 - mContext.getResources().getDimensionPixelSize(R.dimen.height_room_channel)
                 - mContext.getResources().getDimensionPixelSize(R.dimen.height_title_calendar)
                 - mContext.getResources().getDimensionPixelSize(R.dimen.height_day_calendar)
-                - mContext.getResources().getDimensionPixelSize(R.dimen.height_view_calendar)
+                - mContext.getResources().getDimensionPixelSize(R.dimen.height_view_calendar) * total
+                - mContext.getResources().getDimensionPixelSize(R.dimen.bottom_bar_height)
                 - getActionBarSize(mContext)
                 - getStatusBarHeight(mContext));
     }
@@ -53,7 +54,7 @@ public class CalendarUtils {
      * @return int
      */
     public static int setHeightItemCalendar(Context mContext, int totalColumn) {
-        return getHeightCalendar(mContext) / totalColumn;
+        return getHeightCalendar(mContext,totalColumn) / totalColumn;
     }
 
     public static int setWidthItemCalendar(Context mContext) {

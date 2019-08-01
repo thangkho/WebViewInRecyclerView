@@ -1,16 +1,20 @@
 package com.bklabs.webviewinrecyclerview.calendar.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bklabs.webviewinrecyclerview.R;
-import com.bklabs.webviewinrecyclerview.calendar.CalendarDialog;
-import com.bklabs.webviewinrecyclerview.calendar.RoomChannel;
-import com.bklabs.webviewinrecyclerview.calendar.customcalendar.AdapterCalendar;
+import com.bklabs.webviewinrecyclerview.calendar.adapter.AdapterCalendar;
+import com.bklabs.webviewinrecyclerview.calendar.dialog.CalendarDialog;
+import com.bklabs.webviewinrecyclerview.calendar.model.RoomChannel;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 
+import java.text.DateFormatSymbols;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -30,6 +34,11 @@ public class CalendarFragment extends Fragment implements AdapterCalendar.IClick
     private int mWeekInMonth;
     private RecyclerView mRvCalendar;
     CollapsingToolbarLayout collapsingToolbarLayout;
+    Calendar calendarShow = Calendar.getInstance();
+    private ImageView imgBack;
+    private ImageView imgNext;
+    private TextView tvTime;
+    private AdapterCalendar mAdapterCalendar;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -59,15 +68,31 @@ public class CalendarFragment extends Fragment implements AdapterCalendar.IClick
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRvCalendar = view.findViewById(R.id.rvNotificationF);
-        Calendar calendar = Calendar.getInstance();
-        calendar.add(Calendar.MONTH, 1);
-
-        initRvCalendar(calendar.getTime());
+        imgBack = view.findViewById(R.id.back);
+        imgNext = view.findViewById(R.id.next);
+        tvTime = view.findViewById(R.id.tvTime);
+        initRvCalendar(calendarShow.getTime(), false);
+        imgBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendarShow.add(Calendar.MONTH, -1);
+                initRvCalendar(calendarShow.getTime(), true);
+            }
+        });
+        imgNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendarShow.add(Calendar.MONTH, 1);
+                initRvCalendar(calendarShow.getTime(), true);
+            }
+        });
     }
 
-    private void initRvCalendar(Date date) {
+    private void initRvCalendar(Date date, boolean isUpdate) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
+        String month = new DateFormatSymbols().getMonths()[calendar.get(Calendar.MONTH)];
+        tvTime.setText(month + "/" + calendar.get(Calendar.YEAR));
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         // determine the cell for current month's beginning
 
@@ -81,20 +106,28 @@ public class CalendarFragment extends Fragment implements AdapterCalendar.IClick
         // move calendar backwards to the beginning of the week
         calendar.add(Calendar.DAY_OF_MONTH, -monthBeginningCell);
         // fill cells
+        mListRoom.clear();
         while (mListRoom.size() < mDaysCount) {
             RoomChannel scheduleCount = new RoomChannel();
             scheduleCount.setDate(calendar.getTime());
             mListRoom.add(scheduleCount);
             calendar.add(Calendar.DAY_OF_MONTH, 1);
         }
-        AdapterCalendar mAdapterCalendar = new AdapterCalendar(mListRoom, date, mWeekInMonth);
-        mAdapterCalendar.setClickListener(this);
-        mRvCalendar.addItemDecoration(new DividerItemDecoration(getActivity(),
-                DividerItemDecoration.HORIZONTAL));
-        mRvCalendar.addItemDecoration(new DividerItemDecoration(getActivity(),
-                DividerItemDecoration.VERTICAL));
-        mRvCalendar.setLayoutManager(new GridLayoutManager(mRvCalendar.getContext(), mNumberColumns));
-        mRvCalendar.setAdapter(mAdapterCalendar);
+        if (isUpdate) {
+
+            Log.d("tag_calendar",mListRoom.size()+" "+mWeekInMonth+" "+date.toString());
+            mAdapterCalendar.setData(mListRoom, date, mWeekInMonth);
+            mAdapterCalendar.notifyDataSetChanged();
+        } else {
+            mAdapterCalendar = new AdapterCalendar(mListRoom, date, mWeekInMonth);
+            mAdapterCalendar.setClickListener(this);
+            mRvCalendar.addItemDecoration(new DividerItemDecoration(getActivity(),
+                    DividerItemDecoration.HORIZONTAL));
+            mRvCalendar.addItemDecoration(new DividerItemDecoration(getActivity(),
+                    DividerItemDecoration.VERTICAL));
+            mRvCalendar.setLayoutManager(new GridLayoutManager(mRvCalendar.getContext(), mNumberColumns));
+            mRvCalendar.setAdapter(mAdapterCalendar);
+        }
 
     }
 
@@ -127,7 +160,7 @@ public class CalendarFragment extends Fragment implements AdapterCalendar.IClick
 
     @Override
     public void clickItem(RoomChannel roomChannel, int with, int height, float x, float y, int[] test2) {
-        CalendarDialog editNameDialogFragment = CalendarDialog.newInstance(roomChannel, with, height, x, y,test2);
+        CalendarDialog editNameDialogFragment = CalendarDialog.newInstance(roomChannel, with, height, x, y, test2);
         editNameDialogFragment.show(getChildFragmentManager(), "fragment_edit_name");
 //        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 //        View customView = layoutInflater.inflate(R.layout.fragment_edit_room,null);

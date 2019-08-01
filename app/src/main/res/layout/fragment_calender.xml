@@ -8,10 +8,6 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"></LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
         android:layout_height="@dimen/height_room_channel"
         android:background="@color/color_gray"
         android:gravity="center_vertical"
@@ -68,11 +64,13 @@
                 android:paddingRight="12dp">
 
                 <ImageView
+                    android:id="@+id/back"
                     android:layout_width="33dp"
                     android:layout_height="33dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/ic_arrow_back_black_24dp" />
 
                 <TextView
+                    android:id="@+id/tvTime"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
@@ -81,9 +79,10 @@
                     android:text="August 2019" />
 
                 <ImageView
+                    android:id="@+id/next"
                     android:layout_width="33dp"
                     android:layout_height="33dp"
-                    android:src="@mipmap/ic_launcher" />
+                    android:src="@drawable/ic_arrow_forward_black_24dp" />
             </LinearLayout>
 
             <LinearLayout

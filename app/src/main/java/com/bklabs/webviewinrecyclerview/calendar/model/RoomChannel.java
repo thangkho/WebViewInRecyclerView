@@ -1,4 +1,4 @@
-package com.bklabs.webviewinrecyclerview.calendar;
+package com.bklabs.webviewinrecyclerview.calendar.model;
 
 import java.io.Serializable;
 import java.util.Date;

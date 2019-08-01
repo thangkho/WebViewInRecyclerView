@@ -1,7 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:background="#fff"
-    android:layout_height="match_parent">
+    android:id="@+id/ln_parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff">
+
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="2dp"
+        android:gravity="center"
+        android:text="day"
+        android:textColor="@color/color_gray"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_gravity="right"
+        android:layout_marginTop="2dp"
+        android:layout_marginRight="2dp"
+        android:src="@mipmap/ic_launcher" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:background="@null"
+        android:inputType="number"
+        android:maxLines="1"
+        android:text="30"
+        android:textColor="#ff0000"
+        android:textSize="17sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_marginBottom="2dp"
+        android:text="30"
+        android:textColor="@color/colorBlueGradient"
+        android:textSize="12sp" />
 
 </FrameLayout>

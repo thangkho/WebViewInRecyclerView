@@ -1,4 +1,4 @@
-package com.bklabs.webviewinrecyclerview.calendar;
+package com.bklabs.webviewinrecyclerview.calendar.dialog;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -12,6 +12,7 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 
 import com.bklabs.webviewinrecyclerview.R;
+import com.bklabs.webviewinrecyclerview.calendar.model.RoomChannel;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -87,9 +88,10 @@ public class CalendarDialog extends DialogFragment {
         LayoutInflater inflater = LayoutInflater.from(context);
         View dynamicView = inflater.inflate(R.layout.item_edit_room, null);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
-        params.topMargin = test2[1];
-        params.leftMargin = test2[0];
-        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        params.rightMargin = test2[0];
+        params.bottomMargin = test2[1];
+
+//        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
         layoutParent.addView(dynamicView, params);
     }
 }
