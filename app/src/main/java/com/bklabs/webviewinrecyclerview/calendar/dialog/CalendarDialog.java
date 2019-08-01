@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.bklabs.webviewinrecyclerview.R;
@@ -95,7 +96,7 @@ public class CalendarDialog extends DialogFragment {
     private void addView(float x, float y, int width, int height, Context context, int[] test2) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View dynamicView = inflater.inflate(R.layout.item_edit_room, null);
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
+        FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
         params.rightMargin = test2[0];
         params.bottomMargin = test2[1];
         final EditText edtCount = dynamicView.findViewById(R.id.edtCount);
