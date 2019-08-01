@@ -5,10 +5,15 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 
 import com.bklabs.webviewinrecyclerview.R;
@@ -20,6 +25,7 @@ import androidx.fragment.app.DialogFragment;
 
 public class CalendarDialog extends DialogFragment {
     RelativeLayout layoutParent;
+    private EditText edtCount;
 
     public CalendarDialog() {
         // Empty constructor required for DialogFragment
@@ -29,7 +35,7 @@ public class CalendarDialog extends DialogFragment {
         CalendarDialog frag = new CalendarDialog();
         Bundle args = new Bundle();
         args.putSerializable("roomChannel", roomChannel);
-        args.putIntArray("paramposition",test2);
+        args.putIntArray("paramposition", test2);
         args.putInt("with", with);
         args.putInt("height", height);
         args.putFloat("xPosition", x);
@@ -64,13 +70,15 @@ public class CalendarDialog extends DialogFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        layoutParent = view.findViewById(R.id.layout_parent);
         float x = getArguments().getFloat("xPosition", 0);
         float y = getArguments().getFloat("yPosition", 0);
         int width = getArguments().getInt("with", 0);
         int height = getArguments().getInt("height", 0);
         int[] test2 = getArguments().getIntArray("paramposition");
-        layoutParent = view.findViewById(R.id.layout_parent);
-        addView(x, y, width, height, view.getContext(),test2);
+
+
+        addView(x, y, width, height, view.getContext(), test2);
     }
 
     @Override
@@ -90,8 +98,30 @@ public class CalendarDialog extends DialogFragment {
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(width, height);
         params.rightMargin = test2[0];
         params.bottomMargin = test2[1];
+        final EditText edtCount = dynamicView.findViewById(R.id.edtCount);
+        showKeyboard();
+        edtCount.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-//        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                edtCount.setBackgroundColor(TextUtils.isEmpty(edtCount.getText()) ? Color.RED : Color.WHITE);
+
+            }
+        });
         layoutParent.addView(dynamicView, params);
+    }
+
+    public void showKeyboard() {
+        InputMethodManager inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        inputMethodManager.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
     }
 }

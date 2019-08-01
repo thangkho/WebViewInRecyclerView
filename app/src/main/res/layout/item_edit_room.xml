@@ -25,6 +25,7 @@
         android:src="@mipmap/ic_launcher" />
 
     <EditText
+        android:id="@+id/edtCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
