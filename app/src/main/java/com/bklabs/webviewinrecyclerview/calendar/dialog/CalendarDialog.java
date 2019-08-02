@@ -27,8 +27,10 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 
 public class CalendarDialog extends DialogFragment {
-    RelativeLayout layoutParent;
+    ViewGroup root;
     private EditText edtCount;
+    RoomChannel roomChannel;
+    int test2[] = new int[2];
 
     public CalendarDialog() {
         // Empty constructor required for DialogFragment
@@ -47,33 +49,32 @@ public class CalendarDialog extends DialogFragment {
         return frag;
     }
 
+    @NonNull
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        getDialog().setTitle(getString(R.string.app_name));
-        getDialog().getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-        getDialog().getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
-        View view = inflater.inflate(R.layout.fragment_add_note_dialog,
-                container);
-
-        return view;
+    public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setCancelable(false);
+        dialog.setCanceledOnTouchOutside(false);
+        return dialog;
     }
 
-
     @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        Dialog dialog = super.onCreateDialog(savedInstanceState);
-
-        // request a window without the title
-        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-
-        return dialog;
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.MATCH_PARENT);
+        root = new FrameLayout(inflater.getContext());
+        root.setLayoutParams(params);
+        return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        layoutParent = view.findViewById(R.id.layout_parent);
+        if (getArguments() == null) {
+            return;
+        }
         float x = getArguments().getFloat("xPosition", 0);
         float y = getArguments().getFloat("yPosition", 0);
         int width = getArguments().getInt("with", 0);
@@ -88,20 +89,22 @@ public class CalendarDialog extends DialogFragment {
     @Override
     public void onStart() {
         super.onStart();
-
         Dialog dialog = getDialog();
-        if (dialog != null) {
+        if (dialog != null && dialog.getWindow() != null) {
             dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            dialog.setTitle(getString(R.string.app_name));
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(android.graphics.Color.TRANSPARENT));
+//            dialog.getWindow().setSoftInputMode(
+//                    WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE|WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
         }
     }
 
     private void addView(float x, float y, int width, int height, Context context, int[] test2) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View dynamicView = inflater.inflate(R.layout.item_edit_room, null);
+        View dynamicView = inflater.inflate(R.layout.item_edit_room, root, false);
         FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
-        params.rightMargin = test2[0];
-        params.bottomMargin = test2[1];
+        params.topMargin = test2[1] - height / 2;
+        params.leftMargin = test2[0];
         final EditText edtCount = dynamicView.findViewById(R.id.edtCount);
         final TextView tvDay = dynamicView.findViewById(R.id.tv_date);
         Calendar calendar = Calendar.getInstance();
@@ -125,7 +128,7 @@ public class CalendarDialog extends DialogFragment {
 
             }
         });
-        layoutParent.addView(dynamicView, params);
+        root.addView(dynamicView, params);
     }
 
     public void showKeyboard() {

@@ -171,14 +171,6 @@ public class CalendarFragment extends Fragment implements AdapterCalendar.IClick
     public void clickItem(RoomChannel roomChannel, int with, int height, float x, float y, int[] test2) {
         CalendarDialog editNameDialogFragment = CalendarDialog.newInstance(roomChannel, with, height, x, y, test2);
         editNameDialogFragment.show(getChildFragmentManager(), "fragment_edit_name");
-//        LayoutInflater layoutInflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-//        View customView = layoutInflater.inflate(R.layout.fragment_edit_room,null);
-//
-//
-//        PopupWindow  popupWindow = new PopupWindow(customView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-//
-//        //display the popup window
-//        popupWindow.showAtLocation(mRvCalendar, Gravity.CENTER, (int)x, (int)y);
     }
 
     private ViewTreeObserver.OnGlobalLayoutListener keyboardLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
