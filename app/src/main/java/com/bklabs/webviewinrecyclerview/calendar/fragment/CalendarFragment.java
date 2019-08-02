@@ -5,8 +5,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
+import android.view.Window;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bklabs.webviewinrecyclerview.R;
 import com.bklabs.webviewinrecyclerview.calendar.adapter.AdapterCalendar;
@@ -22,6 +26,7 @@ import java.util.Date;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -39,6 +44,7 @@ public class CalendarFragment extends Fragment implements AdapterCalendar.IClick
     private ImageView imgNext;
     private TextView tvTime;
     private AdapterCalendar mAdapterCalendar;
+    private LinearLayout rootView;
 
     public CalendarFragment() {
         // Required empty public constructor
@@ -68,6 +74,9 @@ public class CalendarFragment extends Fragment implements AdapterCalendar.IClick
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mRvCalendar = view.findViewById(R.id.rvNotificationF);
+        rootView = view.findViewById(R.id.root_view);
+        rootView.getViewTreeObserver().addOnGlobalLayoutListener(keyboardLayoutListener);
+
         imgBack = view.findViewById(R.id.back);
         imgNext = view.findViewById(R.id.next);
         tvTime = view.findViewById(R.id.tvTime);
@@ -96,7 +105,7 @@ public class CalendarFragment extends Fragment implements AdapterCalendar.IClick
         calendar.setFirstDayOfWeek(Calendar.MONDAY);
         // determine the cell for current month's beginning
 
-//        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
         int monthBeginningCell = getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK));
         //size of grid calendar
         mDaysCount = getDayOfWeek(calendar.get(Calendar.DAY_OF_WEEK)) + calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -115,7 +124,7 @@ public class CalendarFragment extends Fragment implements AdapterCalendar.IClick
         }
         if (isUpdate) {
 
-            Log.d("tag_calendar",mListRoom.size()+" "+mWeekInMonth+" "+date.toString());
+            Log.d("tag_calendar", mListRoom.size() + " " + mWeekInMonth + " " + date.toString());
             mAdapterCalendar.setData(mListRoom, date, mWeekInMonth);
             mAdapterCalendar.notifyDataSetChanged();
         } else {
@@ -171,4 +180,31 @@ public class CalendarFragment extends Fragment implements AdapterCalendar.IClick
 //        //display the popup window
 //        popupWindow.showAtLocation(mRvCalendar, Gravity.CENTER, (int)x, (int)y);
     }
+
+    private ViewTreeObserver.OnGlobalLayoutListener keyboardLayoutListener = new ViewTreeObserver.OnGlobalLayoutListener() {
+        @Override
+        public void onGlobalLayout() {
+            int heightDiff = rootView.getRootView().getHeight() - rootView.getHeight();
+            int contentViewTop = getActivity().getWindow().findViewById(Window.ID_ANDROID_CONTENT).getTop();
+
+            LocalBroadcastManager broadcastManager = LocalBroadcastManager.getInstance(getActivity());
+
+            if (heightDiff <= contentViewTop) {
+                Toast.makeText(getActivity(), "hide keyboard ", Toast.LENGTH_SHORT).show();
+//                onHideKeyboard();
+//
+//                Intent intent = new Intent("KeyboardWillHide");
+//                broadcastManager.sendBroadcast(intent);
+            } else {
+                int keyboardHeight = heightDiff - contentViewTop;
+                Toast.makeText(getActivity(), "show keyboard " + keyboardHeight, Toast.LENGTH_SHORT).show();
+
+//                onShowKeyboard(keyboardHeight);
+//
+//                Intent intent = new Intent("KeyboardWillShow");
+//                intent.putExtra("KeyboardHeight", keyboardHeight);
+//                broadcastManager.sendBroadcast(intent);
+            }
+        }
+    };
 }

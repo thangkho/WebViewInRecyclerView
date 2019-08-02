@@ -15,10 +15,12 @@ import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bklabs.webviewinrecyclerview.R;
 import com.bklabs.webviewinrecyclerview.calendar.model.RoomChannel;
+
+import java.util.Calendar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -77,6 +79,7 @@ public class CalendarDialog extends DialogFragment {
         int width = getArguments().getInt("with", 0);
         int height = getArguments().getInt("height", 0);
         int[] test2 = getArguments().getIntArray("paramposition");
+        roomChannel = (RoomChannel) getArguments().getSerializable("roomChannel");
 
 
         addView(x, y, width, height, view.getContext(), test2);
@@ -100,7 +103,11 @@ public class CalendarDialog extends DialogFragment {
         params.rightMargin = test2[0];
         params.bottomMargin = test2[1];
         final EditText edtCount = dynamicView.findViewById(R.id.edtCount);
-        showKeyboard();
+        final TextView tvDay = dynamicView.findViewById(R.id.tv_date);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(roomChannel.getDate());
+        tvDay.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+//        showKeyboard();
         edtCount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
